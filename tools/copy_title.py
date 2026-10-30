@@ -1,5 +1,5 @@
 # Robot penyalin judul untuk GitHub Actions (berjalan di runner, token repo sendiri).
-# v5.1 (30 Okt 2026): unggah via GIT PUSH dengan commit-tree — pohon baru dibangun
+# v5.2 (31 Okt 2026): unggah via GIT PUSH dengan commit-tree — pohon baru dibangun
 # hanya di jalur berkas yang berubah (hash-object + mktree + commit-tree), TANPA
 # indeks repo. Pelajaran probe v5 (30 Okt 2026): git add/commit di atas indeks
 # clone parsial repo raksasa (80+ GB) menggantung >30 mnt sampai timeout, sesudah
@@ -159,7 +159,7 @@ def download_episode(slug_id, num, outdir):
                 return True
             time.sleep(2 + rnd * 3)
         return False
-    with ThreadPoolExecutor(max_workers=10) as ex:
+    with ThreadPoolExecutor(max_workers=16) as ex:
         results = list(ex.map(grab, range(len(segs))))
     if not all(results):
         log(f'  ep{num}: segmen gagal {results.count(False)}'); return False
